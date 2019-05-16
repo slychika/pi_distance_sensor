@@ -20,7 +20,7 @@ Pin 4 - Ground (Black)
 
 Pin 12 - Signal (Yellow)
 
-![](https://github.com/slychika/pi_distance_sensor/images/piAndSensorImage.jpg)
+![](https://github.com/slychika/pi_distance_sensor/blob/master/images/piAndSensorImage.jpg)
 
 
 # Install
