@@ -1,12 +1,12 @@
 import RPi.GPIO as GPIO
 import time
 
-import salesforce_requests_oauthlib import SalesforceOAuth2Session
-import salesforce_streaming_client import SalesforceStreamingClient
-import salesforce_streaming_client import _decode_set
-import salesforce_streaming_client import _encode_set
+#import salesforce_requests_oauthlib import SalesforceOAuth2Session
+#import salesforce_streaming_client import SalesforceStreamingClient
+#import salesforce_streaming_client import _decode_set
+#import salesforce_streaming_client import _encode_set
 
-import json
+#import json
 
 #Declare GPIO Setup
 GPIO.setmode(GPIO.BOARD)
