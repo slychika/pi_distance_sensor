@@ -16,7 +16,7 @@ This repository is meant to be run with the following hardware:
 
 Pin 2 - Power (Red cable)
 
-Pin 4 - Ground (Black)
+Pin 6 - Ground (Black)
 
 Pin 12 - Signal (Yellow)
 
