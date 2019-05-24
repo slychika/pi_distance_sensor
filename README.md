@@ -26,11 +26,28 @@ Pin 12 - Signal (Yellow)
 # Install
 I am using Rasbian Strech Lite, but any OS from here should work: https://www.raspberrypi.org/downloads/raspbian/
 
-Make sure you have Python installed 
+Make sure you have Python3 installed 
 
-Be sure to update/install RPi.GPIO
+Install cryptography dependencies:
+`sudo apt-get install build-essential libssl-dev libffi-dev python3-dev`
 
-`pip install RPi.GPIO`
+Install simple Salesforce REST client:
+
+`pip3 install simple-salesforce`
+
+Install RPi.GPIO:
+
+`pip3 install RPi.GPIO`
+
+Create and fill a `config.ini` file with this format:
+
+```
+[SALESFORCE]
+DOMAIN = test
+USERNAME = 
+PASSWORD = 
+TOKEN = 
+```
 
 # Run the program
-`python distanceSense.py`
+`python3 distanceSense.py`

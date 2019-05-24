@@ -1,32 +1,41 @@
 import RPi.GPIO as GPIO
 import time
+import configparser
+import requests
 
-#import salesforce_requests_oauthlib import SalesforceOAuth2Session
-#import salesforce_streaming_client import SalesforceStreamingClient
-#import salesforce_streaming_client import _decode_set
-#import salesforce_streaming_client import _encode_set
+from simple_salesforce import Salesforce
 
-#import json
+
+# Read config
+config = configparser.ConfigParser()
+config.read('config.ini')
+print('Running as user: '+ config['SALESFORCE']['USERNAME'])
 
 #Declare GPIO Setup
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-#Declare Salesforce Setup
-salesforce_client_id = ''
-salesforce_client_secret = ''
-username = ''
-password = ''
+# Connect to Salesforce
+sf = Salesforce(
+    username=config['SALESFORCE']['USERNAME'],
+    password=config['SALESFORCE']['PASSWORD'],
+    security_token=config['SALESFORCE']['TOKEN'],
+    domain=config['SALESFORCE']['DOMAIN'])
+# Fetch train IP
+device = sf.apexecute('Device/Train', method='GET')
+trainIp = device['Last_Known_IP__c']
+print('Train last known IP: '+ trainIp)
+trainStopUrl = 'http://'+ trainIp +':8080/api/train/stop'
 
-EVENT_TRAIN_STOP = 'Train_Stop'
-
-
-
-
+print('Scanning...')
 try:
     while True:
-        print(GPIO.input(12))
-        time.sleep(1)
-        print('--')
+        sensorValue = GPIO.input(12)
+        if sensorValue == 1:
+            print('Stopping train')
+            requests.post(trainStopUrl)
+            time.sleep(10)
+            print('Resuming scan')
+        time.sleep(0.1)
 except KeyboardInterrupt:
     GPIO.cleanup()
