@@ -2,14 +2,15 @@ import RPi.GPIO as GPIO
 import time
 import configparser
 import requests
-
+import socket
 from simple_salesforce import Salesforce
 
 
 # Read config
 config = configparser.ConfigParser()
 config.read('config.ini')
-print('Running as user: '+ config['SALESFORCE']['USERNAME'])
+hostname = socket.gethostname()
+print(hostname + ' running as user: '+ config['SALESFORCE']['USERNAME'])
 
 #Declare GPIO Setup
 GPIO.setmode(GPIO.BOARD)
@@ -34,7 +35,7 @@ try:
         if sensorValue == 1:
             print('Stopping train')
             time.sleep(float(config['TRAIN']['STOP_DELAY']))
-            requests.post(trainStopUrl)
+            requests.post(trainStopUrl, data=json.dumps({ sender: hostname }))
             time.sleep(float(config['TRAIN']['SCAN_RESUME_DELAY']))
             print('Resuming scan')
         time.sleep(0.1)
