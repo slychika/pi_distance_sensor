@@ -33,9 +33,9 @@ try:
         sensorValue = GPIO.input(12)
         if sensorValue == 1:
             print('Stopping train')
-            time.sleep(int(config['TRAIN']['STOP_DELAY']))
+            time.sleep(float(config['TRAIN']['STOP_DELAY']))
             requests.post(trainStopUrl)
-            time.sleep(int(config['TRAIN']['SCAN_RESUME_DELAY']))
+            time.sleep(float(config['TRAIN']['SCAN_RESUME_DELAY']))
             print('Resuming scan')
         time.sleep(0.1)
 except KeyboardInterrupt:
