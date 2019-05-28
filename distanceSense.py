@@ -3,6 +3,7 @@ import time
 import configparser
 import requests
 import socket
+import json
 from simple_salesforce import Salesforce
 
 
@@ -28,6 +29,8 @@ trainIp = device['Last_Known_IP__c']
 print('Train last known IP: '+ trainIp)
 trainStopUrl = 'http://'+ trainIp +':8080/api/train/stop'
 
+
+
 print('Scanning...')
 try:
     while True:
@@ -35,7 +38,11 @@ try:
         if sensorValue == 1:
             print('Stopping train')
             time.sleep(float(config['TRAIN']['STOP_DELAY']))
-            requests.post(trainStopUrl, data=json.dumps({ sender: hostname }))
+
+            payload = { 'sender': hostname }
+            headers = {'content-type': 'application/json'}
+            requests.post(trainStopUrl, data=json.dumps(payload), headers=headers)
+
             time.sleep(float(config['TRAIN']['SCAN_RESUME_DELAY']))
             print('Resuming scan')
         time.sleep(0.1)
