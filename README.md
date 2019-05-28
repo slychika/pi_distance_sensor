@@ -47,6 +47,10 @@ DOMAIN = test
 USERNAME = 
 PASSWORD = 
 TOKEN = 
+
+[TRAIN]
+STOP_DELAY = 1
+SCAN_RESUME_DELAY = 10
 ```
 
 # Run the program
