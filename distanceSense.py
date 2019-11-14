@@ -2,7 +2,6 @@ import RPi.GPIO as GPIO
 import time
 import configparser
 import requests
-from requests.exceptions import Timeout
 import socket
 import json
 from simple_salesforce import Salesforce
@@ -46,7 +45,7 @@ try:
             while True:
                 try:
                     response = requests.post(trainStopUrl, data=json.dumps(payload), headers=headers, timeout=5)
-                except Timeout:
+                except:
                     print('REST call timed out after 5s, retrying in 1s')
                     response = None
                 if response is not None and response.ok == True:
